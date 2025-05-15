@@ -9,18 +9,22 @@
 
 ## ✨ 주요 기능
 
-### 1. 🔐 로그인 / 회원가입 화면 (Login.kt, Register.kt)
+### 1. 🔐 로그인 [Login.kt](app/src/main/java/com/example/refac_userbus/Login.kt) / 회원가입 화면 [Register.kt](app/src/main/java/com/example/refac_userbus/Register.kt)
+- 로그인 레이아웃 [보러가기](app/src/main/res/layout/activity_login.xml)
+- 회원가입 레이아웃 [보러가기](app/src/main/res/layout/activity_register.xml)
 - Firebase Authentication을 이용한 이메일/비밀번호 로그인
 - 자동 로그인 기능(CheckBox 활용) => sharedPreference
 - 회원가입 후 Firebase에 사용자 정보 저장
 - 이메일 양식이 아니거나 둘 중 하나 이상이 공란일 때 로그인 비활성화
 - 이메일 양식이 아니거나 둘 중 하나 이상이 공란, 비밀번호가 8자리 미만일 시 회원가입 비활성화
 
-### 2.🏠 노선 선택 화면 (RouteChoose.kt)
+### 2.🏠 노선 선택 화면 [RouteChoose.kt](app/src/main/java/com/example/refac_userbus/RouteChoose.kt)
+- 레이아웃 [보러가기](app/src/main/res/layout/activity_routechoose.xml)
 - 4개의 등교노선과 1개의 하교선택 버튼으로 구성
 - 클릭 시 선택한 노선에 따라 TimePlace 페이지 내 구성요소 변경 (TextView, Spinner 내 시간과 정류장, 지도 화면)
 
-### 3. ⏰ 시간 및 정류장 선택 화면 (TimePlace.kt)
+### 3. ⏰ 시간 및 정류장 선택 화면 [TimePlace.kt](app/src/main/java/com/example/refac_userbus/TimePlace.kt)
+- 레이아웃 [보러가기](app/src/main/res/layout/activity_timeplace.xml)
 - 선택한 노선에 따라 Spinner, 이미지 뷰, 텍스트 뷰를 동적으로 갱신
 - 예약 가능한 시간만 필터링하여 표시 (현재 시간 기준 이후 시간만)
 - 시간과 정류장 중 하나 이상 선택하지 않았을 때 예약 버튼 비활성화
@@ -28,7 +32,8 @@
 - 예약 완료 시 Firebase Firestore에 저장
 - 예약 중복 제한(등교/하교 각각 하루에 1건만 가능하도록)
 
-### 4. 📋 예약 확인 화면 (SelectBusList.kt)
+### 4. 📋 예약 확인 화면 [SelectBusList.kt](app/src/main/java/com/example/refac_userbus/SelectBusList.kt)
+- 레이아웃 [보러가기](app/src/main/res/layout/activity_selectbuslist.xml)
 - 사용자가 예약한 내역을 리스트로 조회
 - 예약이 없을 경우 안내 메시지 표시
 - 각 예약 항목에 대해 삭제 버튼 제공 (시간이 지나면 삭제불가 기능 준비 중)
