@@ -10,9 +10,9 @@
 ## ✨ 주요 기능
 
 ### 1. 🔐 로그인 / 회원가입 화면 (Login.kt, Register.kt)
--Firebase Authentication을 이용한 이메일/비밀번호 로그인
--자동 로그인 기능(CheckBox 활용) => sharedPreference
--회원가입 후 Firebase에 사용자 정보 저장
+- Firebase Authentication을 이용한 이메일/비밀번호 로그인
+- 자동 로그인 기능(CheckBox 활용) => sharedPreference
+- 회원가입 후 Firebase에 사용자 정보 저장
 
 ### 2.🏠 메인 화면 (RouteChoose.kt)
 - 4개의 등교노선과 1개의 하교선택 버튼으로 구성
