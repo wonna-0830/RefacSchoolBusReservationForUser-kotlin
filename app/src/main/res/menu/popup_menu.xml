@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_item_1"
+        android:title="노선별 시간 확인" />
+    <item
+        android:id="@+id/menu_item_2"
+        android:title="예약내역 확인" />
+    <item
+        android:id="@+id/menu_item_3"
+        android:title="LOGOUT" />
+    <item
+        android:id="@+id/menu_item_4"
+        android:title="다크모드로 변경" />
+</menu>

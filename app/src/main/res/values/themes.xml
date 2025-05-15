@@ -1,0 +1,22 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Refac_UserBus" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Refac_UserBus" parent="Base.Theme.Refac_UserBus" />
+
+    <style name="Theme.Refac_UserBus.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="CustomDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <!-- 모서리를 동글게 만들기 -->
+        <item name="android:windowBackground">@drawable/dialog_background_rounded</item>
+        <item name="android:windowMinWidthMajor">80%</item>
+        <item name="android:windowMinWidthMinor">80%</item>
+    </style>
+</resources>

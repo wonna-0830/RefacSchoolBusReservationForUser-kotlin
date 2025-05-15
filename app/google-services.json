@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "162680522381",
+    "project_id": "refacuserbus",
+    "storage_bucket": "refacuserbus.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162680522381:android:329e6203396358963b44c4",
+        "android_client_info": {
+          "package_name": "com.example.refac_userbus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJ9Hz1K7s5MKUS81DDuuUZwjykfl09uYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

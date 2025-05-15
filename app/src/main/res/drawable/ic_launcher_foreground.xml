@@ -1,0 +1,21 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Bus Body -->
+    <path
+        android:fillColor="#FFD500"
+        android:pathData="M18,72h72c3.3,0 6,-2.7 6,-6V42c0,-3.3 -2.7,-6 -6,-6h-72c-3.3,0 -6,2.7 -6,6v24c0,3.3 2.7,6 6,6z"/>
+
+    <!-- Bus Windows -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M26,50h8v8h-8zM42,50h8v8h-8zM58,50h8v8h-8zM74,50h8v8h-8z"/>
+
+    <!-- Bus Wheels -->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M32,86c-5,0 -9,-4 -9,-9s4,-9 9,-9s9,4 9,9s-4,9 -9,9zM76,86c-5,0 -9,-4 -9,-9s4,-9 9,-9s9,4 9,9s-4,9 -9,9z"/>
+</vector>

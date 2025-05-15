@@ -1,0 +1,9 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#E1E1E1">
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" />
+<!--            <corners android:radius="10dp" /> &lt;!&ndash; 이 부분을 추가하여 모서리를 둥글게 만듭니다. &ndash;&gt;-->
+        </shape>
+    </item>
+</ripple>

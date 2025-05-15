@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="130dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="-175dp"
+        android:layout_marginTop="305dp"
+        android:layout_marginBottom="7dp"
+        android:fontFamily="@font/jockeyone"
+        android:text="JOIN!"
+        android:textColor="@color/black"
+        android:textSize="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="303dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="84dp"
+        android:background="@drawable/login_btn"
+        android:fontFamily="@font/jockeyone"
+        android:text="JOIN!"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/rectangle_4"
+        android:layout_width="303dp"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="54dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="64dp"
+        android:background="@drawable/select_button"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/rectangle_2"
+        android:layout_width="303dp"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="54dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/select_button"
+        app:layout_constraintBottom_toTopOf="@+id/rectangle_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="214dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="2dp"
+        android:background="@null"
+        android:ems="10"
+        android:fontFamily="@font/establish_retrosans"
+        android:gravity="center"
+        android:hint="학교 이메일을 입력하세요."
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_2"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_2"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_2"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_2"
+        app:layout_constraintVertical_bias="0.545" />
+
+    <EditText
+        android:id="@+id/et_pwd"
+        android:layout_width="255dp"
+        android:layout_height="0dp"
+        android:background="@null"
+        android:ems="10"
+        android:fontFamily="@font/establish_retrosans"
+        android:gravity="center"
+        android:hint="비밀번호를 입력하세요."
+        android:inputType="textEmailAddress"
+        android:maxLength="20"
+        app:layout_constraintBottom_toBottomOf="@+id/rectangle_4"
+        app:layout_constraintEnd_toEndOf="@+id/rectangle_4"
+        app:layout_constraintStart_toStartOf="@+id/rectangle_4"
+        app:layout_constraintTop_toTopOf="@+id/rectangle_4" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="126dp"
+        android:layout_marginBottom="280dp"
+        android:fontFamily="@font/jockeyone"
+        android:text="학교 이메일과 비밀번호를 입력해주세요!"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView2" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="286dp"
+        android:layout_height="267dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.122"
+        app:srcCompat="@drawable/select_login" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
