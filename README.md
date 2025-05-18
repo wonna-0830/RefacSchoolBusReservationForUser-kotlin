@@ -38,6 +38,7 @@
 - [XML](app/src/main/res/layout/activity_routechoose.xml)
 - 4개의 등교노선과 1개의 하교선택 버튼으로 구성
 - 클릭 시 선택한 노선에 따라 TimePlace 페이지 내 구성요소 변경 (TextView, Spinner 내 시간과 정류장, 지도 화면)
+- 사용자의 이름을 TextView로 연결해 보여줌
 
 ### 3. 시간 및 정류장 선택 화면 [TimePlace.kt](app/src/main/java/com/example/refac_userbus/TimePlace.kt)
 - 레이아웃 [보러가기](https://github.com/wonna-0830/timeplace)
