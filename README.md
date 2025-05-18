@@ -10,18 +10,15 @@
 ## 주요 기능
 
 ### 1. 로그인 [Login.kt](app/src/main/java/com/example/refac_userbus/Login.kt) / 회원가입 화면 [Register.kt](app/src/main/java/com/example/refac_userbus/Register.kt)
-- 로그인 레이아웃 [보러가기](https://github.com/wonna-0830/login)
+- [로그인, 회원가입](https://github.com/wonna-0830/login)
 <a href="https://github.com/wonna-0830/login">
   <img src="images/light_login.jpg" width="200">
   <img src="images/dark_login.jpg" width="200">
-</a>
-- [XML](app/src/main/res/layout/activity_login.xml)
-- 회원가입 레이아웃 [보러가기](https://github.com/wonna-0830/register)
-<a href="https://github.com/wonna-0830/login">
   <img src="images/light_register.jpg" width="200">
   <img src="images/dark_register.jpg" width="200">
 </a>
-- [XML](app/src/main/res/layout/activity_register.xml)
+- [로그인 XML](app/src/main/res/layout/activity_login.xml)
+- [회원가입 XML](app/src/main/res/layout/activity_register.xml)
 - Firebase Authentication을 이용한 이메일/비밀번호 로그인
 - 자동 로그인 기능(CheckBox 활용) => sharedPreference
 - 회원가입 후 Firebase에 사용자 정보 저장
