@@ -12,11 +12,12 @@
 ### 1. 로그인 [Login.kt](app/src/main/java/com/example/refac_userbus/Login.kt) / 회원가입 화면 [Register.kt](app/src/main/java/com/example/refac_userbus/Register.kt)
 - [로그인, 회원가입](https://github.com/wonna-0830/login)
 <a href="https://github.com/wonna-0830/login">
-  <img src="images/light_login.jpg" width="200">
-  <img src="images/dark_login.jpg" width="200">
-  <img src="images/light_register.jpg" width="200">
-  <img src="images/dart_register.jpg" width="200">
+  <img src="images/light_login.jpg" width="180">
+  <img src="images/dark_login.jpg" width="180">
+  <img src="images/light_register.jpg" width="180">
+  <img src="images/dart_register.jpg" width="180">
 </a>
+
 - [로그인 XML](app/src/main/res/layout/activity_login.xml)
 - [회원가입 XML](app/src/main/res/layout/activity_register.xml)
 - Firebase Authentication을 이용한 이메일/비밀번호 로그인
@@ -31,6 +32,7 @@
   <img src="images/light_routechoose.jpg" width="200">
   <img src="images/dark_routechoose.jpg" width="200">
 </a>
+
 - [XML](app/src/main/res/layout/activity_routechoose.xml)
 - 4개의 등교노선과 1개의 하교선택 버튼으로 구성
 - 클릭 시 선택한 노선에 따라 TimePlace 페이지 내 구성요소 변경 (TextView, Spinner 내 시간과 정류장, 지도 화면)
@@ -41,6 +43,7 @@
   <img src="images/light_timeplace.jpg" width="200">
   <img src="images/dark_timeplace.jpg" width="200">
 </a>
+
 - [XML](app/src/main/res/layout/activity_timeplace.xml)
 - 선택한 노선에 따라 Spinner, 이미지 뷰, 텍스트 뷰를 동적으로 갱신
 - 예약 가능한 시간만 필터링하여 표시 (현재 시간 기준 이후 시간만)
@@ -55,6 +58,7 @@
   <img src="images/light_selectbuslist.jpg" width="200">
   <img src="images/dark_selectbuslist.jpg" width="200">
 </a>
+
 - [XML](app/src/main/res/layout/activity_selectbuslist.xml)
 - 사용자가 예약한 내역을 리스트로 조회
 - 예약이 없을 경우 안내 메시지 표시
