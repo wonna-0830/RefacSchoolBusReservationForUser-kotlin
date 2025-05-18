@@ -19,6 +19,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import org.checkerframework.common.subtyping.qual.Bottom
 
 class SelectBusList : AppCompatActivity() {
@@ -41,19 +45,21 @@ class SelectBusList : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
+
         recyclerView = findViewById(R.id.recyclerView)
         progressBar = findViewById(R.id.progressBar)
         textNoReservation = findViewById(R.id.textNoReservation)
 
-        reservationList = arrayListOf()
 
         //어댑터 세팅 후 리스트가 비어있으면 예약 없음 문구 표시
-        adapter = ReservationAdapter(reservationList) {
+        adapter = ReservationAdapter {
             textNoReservation.visibility = View.VISIBLE
             recyclerView.visibility = View.GONE
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
+
+        recyclerView.addItemDecoration(RecyclerViewDecoration(20))
 
         fetchReservation()
 
@@ -90,50 +96,49 @@ class SelectBusList : AppCompatActivity() {
     }
 
     //예약 내역을 불러오기
-    private fun fetchReservation(){
-        val currentUser = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser
+    private fun fetchReservation() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
 
-        //로그인한 사용자의 uid를 이용해 Firebase에서 예약 데이터를 가져옴
         currentUser?.let { user ->
-            val ref = com.google.firebase.database.FirebaseDatabase.getInstance().reference
+            val ref = FirebaseDatabase.getInstance().reference
                 .child("users")
                 .child(user.uid)
                 .child("reservations")
 
             progressBar.visibility = View.VISIBLE
 
-            ref.get().addOnSuccessListener { snapshot ->
-                reservationList.clear()
-
-                //예약 데이터가 존재하면 리스트에 추가해서 recyclerView로 보여주기
-                if (snapshot.exists()){
-                    for(reservationSnapshot in snapshot.children){
-                        val reservation = reservationSnapshot.getValue(ReservationData::class.java)
-                        reservation?.let {
-                            it.pushKey = reservationSnapshot.key ?: ""
-                            reservationList.add(it)
+            ref.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val newList = mutableListOf<ReservationData>()
+                    if (snapshot.exists()) {
+                        for (reservationSnapshot in snapshot.children) {
+                            val reservation = reservationSnapshot.getValue(ReservationData::class.java)
+                            reservation?.let {
+                                it.pushKey = reservationSnapshot.key ?: ""
+                                newList.add(it)
+                            }
                         }
+                        newList.sortByDescending { it.date }
+                        textNoReservation.visibility = View.GONE
+                        recyclerView.visibility = View.VISIBLE
+                    } else {
+                        textNoReservation.visibility = View.VISIBLE
+                        recyclerView.visibility = View.GONE
                     }
-                    reservationList.sortByDescending { it.date }
-                    recyclerView.visibility = View.VISIBLE
-                    textNoReservation.visibility = View.GONE
 
-                } else { //예약 데이터 존재하지 않으면 예약 없음 텍스트 표기
-                    textNoReservation.visibility = View.VISIBLE
-                    recyclerView.visibility = View.GONE
+                    adapter.updateData(newList)  // ✨ 깜빡임 없이 새 리스트 반영!
+                    progressBar.visibility = View.GONE
                 }
 
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(this@SelectBusList, "데이터 로딩 실패: ${error.message}", Toast.LENGTH_SHORT).show()
+                    progressBar.visibility = View.GONE
+                }
+            })
 
-                //item_list간 간격 조정(RecyclerViewDecoration에서 설정 후 가져와서 간격(20) 지정)
-                recyclerView.layoutManager = LinearLayoutManager(this)
-                recyclerView.adapter = adapter
-                recyclerView.addItemDecoration(RecyclerViewDecoration(20))
-
-                adapter.notifyDataSetChanged()
-                progressBar.visibility = View.GONE
-            }
         }
     }
+
 
     private fun showPopupMenu(v: View){
         val popupMenu = PopupMenu(this, v)

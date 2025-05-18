@@ -8,12 +8,15 @@ import android.os.Looper
 import android.view.View
 import android.widget.Button
 import android.widget.PopupMenu
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import org.w3c.dom.Text
 
 class RouteChoose : AppCompatActivity() {
     private var doubleBackToExitPressedOnce = false
@@ -40,6 +43,18 @@ class RouteChoose : AppCompatActivity() {
         btnSawelAnsim.setOnClickListener{openTimePlace("A2->안심역->사월역")}
         btnAnsim.setOnClickListener{openTimePlace("안심역->교내순환")}
         btnHayang.setOnClickListener{openTimePlace("하양역->교내순환")}
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val uid = currentUser?.uid
+        val nameTextView = findViewById<TextView>(R.id.userName)
+
+        FirebaseDatabase.getInstance().getReference("users").child(uid!!)
+            .child("name")
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val name = snapshot.getValue(String::class.java)
+                nameTextView.text = "$name"
+            }.addOnFailureListener{nameTextView.text = "이름 불러오기 실패"}
 
         //팝업메뉴 버튼 정의 후 showPopupMenu 실행
         val fab = findViewById<FloatingActionButton>(R.id.fab)

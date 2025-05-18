@@ -18,6 +18,7 @@ class Register : AppCompatActivity() {
     private lateinit var mFirebaseAuth : FirebaseAuth
     private lateinit var mEtEmail : EditText
     private lateinit var mEtPwd : EditText
+    private lateinit var mEtName : EditText
     private lateinit var mBtnRegister : Button
     private var doubleBackToExitPressedOnce = false
 
@@ -28,14 +29,16 @@ class Register : AppCompatActivity() {
         mFirebaseAuth = FirebaseAuth.getInstance()
         mEtEmail = findViewById(R.id.et_email)
         mEtPwd = findViewById(R.id.et_pwd)
+        mEtName = findViewById(R.id.et_name)
         mBtnRegister = findViewById(R.id.btn_register)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
 
         mBtnRegister.setOnClickListener{
             val email = mEtEmail.text.toString().trim()
             val password = mEtPwd.text.toString().trim()
+            val name = mEtName.text.toString().trim()
 
-            if(email.isEmpty() || password.length < 8){
+            if(email.isEmpty() || password.length < 8 || name.isEmpty()){
                 Toast.makeText(this, "유효한 이메일과 8자 이상의 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -45,6 +48,15 @@ class Register : AppCompatActivity() {
                 .addOnCompleteListener(this){ task ->
                     progressBar.visibility = View.GONE
                 if(task.isSuccessful) {
+                    val uid = mFirebaseAuth.currentUser?.uid
+
+                    // ✅ 이름 DB에 저장
+                    val userRef = FirebaseDatabase.getInstance().getReference("users").child(uid!!)
+                    val userData = mapOf(
+                        "name" to name
+                    )
+                    userRef.setValue(userData)
+
                     Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, Login::class.java))
                     finish()

@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -19,6 +20,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -36,6 +38,7 @@ private lateinit var mAuth: FirebaseAuth
 private var doubleBackToExitPressedOnce = false
 
 class TimePlace : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timeplace)
@@ -106,13 +109,7 @@ class TimePlace : AppCompatActivity() {
             val selectedTime = spinnerTime.selectedItem?.toString() ?: return@setOnClickListener
             val selectedStation = spinnerPlace.selectedItem?.toString() ?: return@setOnClickListener
             val currentDate = SimpleDateFormat("YY-MM-dd", Locale.getDefault()).format(Date())
-            //ReservationData데이터 클래스에 묶기
-            val reservationData = ReservationData(
-                route = routeName,
-                time = selectedTime,
-                station = selectedStation,
-                date = currentDate
-            )
+
 
             // 🔒 예약 금지 조건 검사
             if (selectedTime == "시간을 선택하세요") {
@@ -280,6 +277,7 @@ class TimePlace : AppCompatActivity() {
     }
 
     //10분 전으로 triggerTime을 설정하고 AlarmManager가 알람을 울리도록 함
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun setAlarm(reservationTimeInMillis: Long){
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 

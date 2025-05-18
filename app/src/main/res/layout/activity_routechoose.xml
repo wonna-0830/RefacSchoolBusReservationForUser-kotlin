@@ -122,13 +122,14 @@
         app:layout_constraintVertical_bias="0.039" />
 
     <TextView
-        android:id="@+id/school_num"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/userName"
+        android:layout_width="85dp"
+        android:layout_height="23dp"
         android:fontFamily="@font/mbc_select"
-        android:textColor="@color/black"
         android:text=""
-        android:textSize="17dp"
+        android:textColor="@color/main_text_color"
+        android:textSize="20dp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -141,15 +142,15 @@
         android:layout_height="128dp"
         android:background="@android:color/white"
         android:padding="8dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.14"
-        app:srcCompat="@drawable/dcu_profile"
-        android:scaleType="centerCrop"
-        app:shapeAppearanceOverlay="@style/CircleImage"/>
+        app:layout_constraintVertical_bias="0.16"
+        app:shapeAppearanceOverlay="@style/CircleImage"
+        app:srcCompat="@drawable/dcu_profile" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

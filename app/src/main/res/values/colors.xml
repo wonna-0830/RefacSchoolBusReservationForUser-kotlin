@@ -7,4 +7,6 @@
     <color name="your_desired_color">#FFD500</color>
     <color name="fab_color">#FFFFFF</color>
     <color name="start_background">#FFFFFF</color>
+    <color name="main_text_color">#000000</color> <!-- 기본: 검은색 -->
+
 </resources>

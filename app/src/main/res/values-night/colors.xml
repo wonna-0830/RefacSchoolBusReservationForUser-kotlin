@@ -3,4 +3,6 @@
 
     <color name="fab_color">#444444</color>
     <color name="start_background">#444444</color>
+    <color name="main_text_color">#FFFFFF</color> <!-- 다크모드: 흰색 -->
+
 </resources>

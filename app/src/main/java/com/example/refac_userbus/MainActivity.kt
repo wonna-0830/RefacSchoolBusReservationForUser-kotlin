@@ -4,13 +4,16 @@ import android.app.AlarmManager
 import android.content.Context
 import android.os.Bundle
 import android.content.Intent;
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
@@ -18,9 +21,9 @@ class MainActivity : AppCompatActivity() {
         val prefs = getSharedPreferences("MyApp", MODE_PRIVATE)
         val isDarkMode = prefs.getBoolean("dark_mode", false)
         if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
         super.onCreate(savedInstanceState)
