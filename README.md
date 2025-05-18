@@ -4,7 +4,7 @@
 
 - 2024 대구가톨릭대학교 캡스톤디자인 🥉장려상 수상작(스쿨버스 예약 시스템) Kotlin 리팩토링 버전입니다.  
 - 기존 Java 버전의 구조를 개선하고, 사용자 경험(UX)과 인터페이스(UI)을 향상시켰습니다.
-- [시연 영상 보러가기](https://youtube.com/shorts/W_HfrclE_xM?feature=share)
+- 시연영상 보러가기 [📽️](https://youtube.com/shorts/W_HfrclE_xM?feature=share)
 
 
 ---
