@@ -67,7 +67,7 @@
 - 예약 후 버스 탑승 시간 10분 전 알람 이벤트 기능(테스트 미완료)
 
 ### 5. 공통 기능 (FAB 및 설정 등)
-- [Floating Action Button](images/light_fab)으로 아래 기능 접근 가능:
+- [Floating Action Button](images/light_fab.jpg)으로 아래 기능 접근 가능:
   - 학교 홈페이지의 스쿨버스 노선 페이지로 이동
   - 예약 확인 화면 바로가기
   - 로그아웃
