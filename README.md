@@ -15,7 +15,7 @@
   <img src="images/light_login.jpg" width="200">
   <img src="images/dark_login.jpg" width="200">
   <img src="images/light_register.jpg" width="200">
-  <img src="images/dark_register.jpg" width="200">
+  <img src="images/dart_register.jpg" width="200">
 </a>
 - [로그인 XML](app/src/main/res/layout/activity_login.xml)
 - [회원가입 XML](app/src/main/res/layout/activity_register.xml)
@@ -26,12 +26,22 @@
 - 이메일 양식이 아니거나 둘 중 하나 이상이 공란, 비밀번호가 8자리 미만일 시 회원가입 비활성화
 
 ### 2. 노선 선택 화면 [RouteChoose.kt](app/src/main/java/com/example/refac_userbus/RouteChoose.kt)
-- 레이아웃 [보러가기](https://github.com/wonna-0830/routechoose) [XML](app/src/main/res/layout/activity_routechoose.xml)
+- [레이아웃](https://github.com/wonna-0830/routechoose)
+<a href="https://github.com/wonna-0830/login">
+  <img src="images/light_routechoose.jpg" width="200">
+  <img src="images/dark_routechoose.jpg" width="200">
+</a>
+- [XML](app/src/main/res/layout/activity_routechoose.xml)
 - 4개의 등교노선과 1개의 하교선택 버튼으로 구성
 - 클릭 시 선택한 노선에 따라 TimePlace 페이지 내 구성요소 변경 (TextView, Spinner 내 시간과 정류장, 지도 화면)
 
 ### 3. 시간 및 정류장 선택 화면 [TimePlace.kt](app/src/main/java/com/example/refac_userbus/TimePlace.kt)
-- 레이아웃 [보러가기](https://github.com/wonna-0830/timeplace) [XML](app/src/main/res/layout/activity_timeplace.xml)
+- 레이아웃 [보러가기](https://github.com/wonna-0830/timeplace)
+<a href="https://github.com/wonna-0830/login">
+  <img src="images/light_timeplace.jpg" width="200">
+  <img src="images/dark_timeplace.jpg" width="200">
+</a>
+- [XML](app/src/main/res/layout/activity_timeplace.xml)
 - 선택한 노선에 따라 Spinner, 이미지 뷰, 텍스트 뷰를 동적으로 갱신
 - 예약 가능한 시간만 필터링하여 표시 (현재 시간 기준 이후 시간만)
 - 시간과 정류장 중 하나 이상 선택하지 않았을 때 예약 버튼 비활성화
@@ -40,7 +50,12 @@
 - 예약 중복 제한(등교/하교 각각 하루에 1건만 가능하도록)
 
 ### 4. 예약 확인 화면 [SelectBusList.kt](app/src/main/java/com/example/refac_userbus/SelectBusList.kt)
-- 레이아웃 [보러가기](https://github.com/wonna-0830/selectbuslist) [XML](app/src/main/res/layout/activity_selectbuslist.xml)
+- 레이아웃 [보러가기](https://github.com/wonna-0830/selectbuslist)
+<a href="https://github.com/wonna-0830/login">
+  <img src="images/light_selectbuslist.jpg" width="200">
+  <img src="images/dark_selectbuslist.jpg" width="200">
+</a>
+- [XML](app/src/main/res/layout/activity_selectbuslist.xml)
 - 사용자가 예약한 내역을 리스트로 조회
 - 예약이 없을 경우 안내 메시지 표시
 - 각 예약 항목에 대해 삭제 버튼 제공 (시간이 지나면 삭제불가 기능 준비 중)
@@ -48,7 +63,7 @@
 - 예약 후 버스 탑승 시간 10분 전 알람 이벤트 기능(테스트 미완료)
 
 ### 5. 공통 기능 (FAB 및 설정 등)
-- Floating Action Button으로 아래 기능 접근 가능:
+- [Floating Action Button](images/light_fab)으로 아래 기능 접근 가능:
   - 학교 홈페이지의 스쿨버스 노선 페이지로 이동
   - 예약 확인 화면 바로가기
   - 로그아웃
