@@ -15,7 +15,13 @@
   <img src="images/light_login.PNG" width="200">
   <img src="images/dark_login.PNG" width="200">
 </a>
-- 회원가입 레이아웃 [보러가기](https://github.com/wonna-0830/register) [XML](app/src/main/res/layout/activity_register.xml)
+- [XML](app/src/main/res/layout/activity_login.xml)
+- 회원가입 레이아웃 [보러가기](https://github.com/wonna-0830/register)
+<a href="https://github.com/wonna-0830/login">
+  <img src="images/light_register.PNG" width="200">
+  <img src="images/dark_register.PNG" width="200">
+</a>
+- [XML](app/src/main/res/layout/activity_register.xml)
 - Firebase Authentication을 이용한 이메일/비밀번호 로그인
 - 자동 로그인 기능(CheckBox 활용) => sharedPreference
 - 회원가입 후 Firebase에 사용자 정보 저장
