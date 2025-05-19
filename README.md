@@ -27,6 +27,7 @@
 - 회원가입 후 Firebase에 사용자 정보 저장
 - 이메일 양식이 아니거나 둘 중 하나 이상이 공란일 때 로그인 비활성화
 - 이메일 양식이 아니거나 둘 중 하나 이상이 공란, 비밀번호가 8자리 미만일 시 회원가입 비활성화
+- +추가로 이름 정보도 공란일 시 회원가입 비활성화
 
 ### 2. 노선 선택 화면 [RouteChoose.kt](app/src/main/java/com/example/refac_userbus/RouteChoose.kt)
 - [레이아웃](https://github.com/wonna-0830/routechoose)
