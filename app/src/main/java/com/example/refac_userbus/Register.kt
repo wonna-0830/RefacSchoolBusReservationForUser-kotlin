@@ -13,6 +13,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class Register : AppCompatActivity() {
     private lateinit var mFirebaseAuth : FirebaseAuth
@@ -37,6 +40,7 @@ class Register : AppCompatActivity() {
             val email = mEtEmail.text.toString().trim()
             val password = mEtPwd.text.toString().trim()
             val name = mEtName.text.toString().trim()
+            val joinDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
             if(email.isEmpty() || password.length < 8 || name.isEmpty()){
                 Toast.makeText(this, "유효한 이메일과 8자 이상의 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
@@ -53,7 +57,9 @@ class Register : AppCompatActivity() {
                     // ✅ 이름 DB에 저장
                     val userRef = FirebaseDatabase.getInstance().getReference("users").child(uid!!)
                     val userData = mapOf(
-                        "name" to name
+                        "name" to name,
+                        "email" to email,
+                        "joinDate" to joinDate
                     )
                     userRef.setValue(userData)
 
