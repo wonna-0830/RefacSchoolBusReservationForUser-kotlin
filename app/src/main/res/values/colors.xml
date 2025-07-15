@@ -3,7 +3,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#808080</color>
-
+    <color name="gray_200">#E1E1E1</color>
+    <color name="gray_300">#CFCFCF</color>
+    <color name="purple_500">#6200EE</color>
+    <color name="purple_700">#3700B3</color>
     <color name="your_desired_color">#FFD500</color>
     <color name="fab_color">#FFFFFF</color>
     <color name="start_background">#FFFFFF</color>

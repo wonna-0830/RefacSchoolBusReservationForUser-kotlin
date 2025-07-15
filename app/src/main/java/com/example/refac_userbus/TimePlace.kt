@@ -25,8 +25,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -60,46 +63,74 @@ class TimePlace : AppCompatActivity() {
         mDatabaseRef = FirebaseDatabase.getInstance().reference
         mAuth = FirebaseAuth.getInstance()
 
-        //RouteChoose클래스에서 가져온 routeName을 리턴하고 routeMap에서 routeInfo 객체 추출
-        val routeName = intent.getStringExtra("EXTRA_ROUTE_NAME") ?: return
-        val routeInfo = routeMap[routeName] ?: return
 
-        /*텍스트뷰, 이미지뷰, 스피너를 UI와 연결 후 데이터를 동적으로 바인딩*/
+        val routeName = intent.getStringExtra("EXTRA_ROUTE_NAME") ?: return
         val textRouteName = findViewById<TextView>(R.id.displayRoute)
         val imageView = findViewById<ImageView>(R.id.mapImage)
         val spinnerTime = findViewById<Spinner>(R.id.time_spinner)
         val spinnerPlace = findViewById<Spinner>(R.id.station_spinner)
 
-        textRouteName.text = routeInfo.displayName
-        imageView.setImageResource(routeInfo.imageResId)
+        textRouteName.text = routeName
 
-        val currentTime = Calendar.getInstance()
-        val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
-        val currentMinute = currentTime.get(Calendar.MINUTE)
+        val routeRef = FirebaseDatabase.getInstance().getReference("routes")
 
-        val timeList = mutableListOf<String>()
+        routeRef.orderByChild("name").equalTo(routeName).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (routeSnapshot in snapshot.children) {
+                    val imageName = routeSnapshot.child("imageName").getValue(String::class.java) ?: ""
+                    val stops = routeSnapshot.child("stops").children.mapNotNull { it.getValue(String::class.java) }
+                    val times = routeSnapshot.child("times").children.mapNotNull { it.getValue(String::class.java) }
 
-        for (time in routeInfo.times) {
-            if (time == "시간을 선택하세요") {
-                timeList.add(time)
-            } else {
-                val hour = time.substring(0, 2).toInt()
-                val minute = time.substring(3).toInt()
+                    fun getImageResIdFromRouteName(routeName: String): Int {
+                        return when (routeName) {
+                            "교내순환" -> R.drawable.map_gyonea
+                            "하양역->교내순환" -> R.drawable.hayang_station
+                            "안심역->교내순환" -> R.drawable.map_gyonea
+                            "사월역->교내순환" -> R.drawable.map_gyonea
+                            "A2->안심역->사월역" -> R.drawable.ansim_sawel
+                            else -> R.drawable.dcu_profile // 기본 이미지
+                        }
+                    }
+                    // 이미지
+                    val imageResId = getImageResIdFromRouteName(routeName)
+                    imageView.setImageResource(imageResId)
 
-                if (hour > currentHour || (hour == currentHour && minute >= currentMinute)) {
-                    timeList.add(time)
+                    // 시간 스피너
+                    val currentTime = Calendar.getInstance()
+                    val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
+                    val currentMinute = currentTime.get(Calendar.MINUTE)
+
+                    val timeList = mutableListOf("시간을 선택하세요")
+                    for (time in times) {
+                        val hour = time.substring(0, 2).toIntOrNull()
+                        val minute = time.substring(3).toIntOrNull()
+                        if (hour != null && minute != null &&
+                            (hour > currentHour || (hour == currentHour && minute >= currentMinute))) {
+                            timeList.add(time)
+                        }
+                    }
+
+                    val timeAdapter = ArrayAdapter(this@TimePlace, R.layout.spinner_item_black, timeList)
+                    timeAdapter.setDropDownViewResource(R.layout.spinner_dropdown)
+                    spinnerTime.adapter = timeAdapter
+
+                    // 정류장 스피너
+                    val stationList = mutableListOf("장소를 선택하세요") + stops
+                    val stationAdapter = ArrayAdapter(this@TimePlace, R.layout.spinner_item_black, stationList)
+                    stationAdapter.setDropDownViewResource(R.layout.spinner_dropdown)
+                    spinnerPlace.adapter = stationAdapter
                 }
             }
-        }
 
-        val timeAdapter = ArrayAdapter(this, R.layout.spinner_item_black, timeList)
-        timeAdapter.setDropDownViewResource(R.layout.spinner_dropdown)
-        spinnerTime.adapter = timeAdapter
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@TimePlace, "노선 데이터를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show()
+            }
+        })
 
 
-        val stationAdapter = ArrayAdapter(this, R.layout.spinner_item_black, routeInfo.stations)
-        stationAdapter.setDropDownViewResource(R.layout.spinner_dropdown)
-        spinnerPlace.adapter = stationAdapter
+
+
 
         //예약 버튼 클릭 시 파이어베이스 저장 및 예약 페이지로 넘어가기
         val btnReserve = findViewById<Button>(R.id.reservation)
