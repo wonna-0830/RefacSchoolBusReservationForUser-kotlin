@@ -6,5 +6,7 @@ data class ReservationData(
     val time: String = "",
     val station: String = "",
     val date: String = "",
+    var deleted: Boolean? = null,  // 👈 이 줄 추가!
+    var reason: String = "",
     var pushKey: String = ""  //-> FireBase에 저장된 고유키 (삭제할 때 필요)
 )

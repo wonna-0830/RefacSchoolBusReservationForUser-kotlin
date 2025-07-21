@@ -55,6 +55,16 @@ class ReservationAdapter(
 
         val canDelete = checkCanDelete(reservation.time, reservation.date)
 
+        if (reservation.deleted == true) {
+            holder.btnDelete.isEnabled = true
+            holder.btnDelete.text = "취소완료"
+            holder.btnDelete.setBackgroundColor(Color.BLUE)
+            holder.btnDelete.setOnClickListener {
+                Toast.makeText(holder.itemView.context, "이미 취소된 예약입니다.", Toast.LENGTH_SHORT).show()
+            }
+            return
+        }
+
         if (canDelete) {
             holder.btnDelete.isEnabled = true
             holder.btnDelete.text = "삭제"
@@ -65,31 +75,75 @@ class ReservationAdapter(
                     .setTitle("예약 취소")
                     .setMessage("예약을 취소하시겠습니까?")
                     .setPositiveButton("확인") { _, _ ->
-                        val userId = FirebaseAuth.getInstance().currentUser?.uid
-                        val reservationId = reservation.pushKey
+                        val reasons = arrayOf("수업 변경", "버스 예약 실수", "개인 사정", "기타")
+                        val selectedItems = mutableListOf<String>()
+                        val checkedItems = BooleanArray(reasons.size) { false }
 
-                        if (userId != null && reservationId.isNotEmpty()) {
-                            val ref = FirebaseDatabase.getInstance().reference
-                                .child("users")
-                                .child(userId)
-                                .child("reservations")
-                                .child(reservationId)
-
-                            ref.removeValue().addOnSuccessListener {
-                                Toast.makeText(holder.itemView.context, "예약이 취소되었습니다.", Toast.LENGTH_SHORT).show()
-                            }.addOnFailureListener { e ->
-                                Toast.makeText(holder.itemView.context, "삭제 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+                        val reasonDialog = AlertDialog.Builder(holder.itemView.context)
+                            .setTitle("취소 사유를 선택해주세요")
+                            .setMultiChoiceItems(reasons, checkedItems) { _, which, isChecked ->
+                                if (isChecked) {
+                                    selectedItems.add(reasons[which])
+                                } else {
+                                    selectedItems.remove(reasons[which])
+                                }
                             }
-                        } else {
-                            Toast.makeText(holder.itemView.context, "삭제할 수 없습니다. (키 누락)", Toast.LENGTH_SHORT).show()
+                            .setPositiveButton("확인", null) // 나중에 setOnShowListener로 커스텀 처리
+                            .setNegativeButton("취소", null)
+                            .create()
+
+                        reasonDialog.setOnShowListener {
+                            val button = reasonDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                            button.setOnClickListener {
+                                if (selectedItems.isEmpty()) {
+                                    Toast.makeText(holder.itemView.context, "하나 이상의 사유를 선택해주세요.", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    val userId = FirebaseAuth.getInstance().currentUser?.uid
+                                    val reservationId = reservation.pushKey
+
+                                    if (userId != null && reservationId.isNotEmpty()) {
+                                        val ref = FirebaseDatabase.getInstance().reference
+                                            .child("users")
+                                            .child(userId)
+                                            .child("reservations")
+                                            .child(reservationId)
+
+                                        val updates = mapOf(
+                                            "deleted" to true,
+                                            "reason" to selectedItems.joinToString(", ")
+                                        )
+
+                                        ref.updateChildren(updates).addOnSuccessListener {
+                                            Toast.makeText(holder.itemView.context, "예약이 취소되었습니다.", Toast.LENGTH_SHORT).show()
+
+                                            holder.btnDelete.isEnabled = true
+                                            holder.btnDelete.text = "취소완료"
+                                            holder.btnDelete.setBackgroundColor(Color.BLUE)
+
+                                            holder.btnDelete.setOnClickListener {
+                                                Toast.makeText(holder.itemView.context, "이미 취소된 예약입니다ㅓ.", Toast.LENGTH_SHORT).show()
+                                            }
+
+                                            reasonDialog.dismiss()
+                                        }.addOnFailureListener { e ->
+                                            Toast.makeText(holder.itemView.context, "업데이트 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+                                        }
+                                    } else {
+                                        Toast.makeText(holder.itemView.context, "업데이트할 수 없습니다. (키 누락)", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }
                         }
+
+                        reasonDialog.show()
                     }
-                    .setNegativeButton("취소", null)
+                    .setNegativeButton("닫기", null)
                     .show()
             }
+
         } else {
             holder.btnDelete.isEnabled = true
-            holder.btnDelete.text = "삭제불가"
+            holder.btnDelete.text = "운행완료"
             holder.btnDelete.setBackgroundColor(Color.LTGRAY)
 
             holder.btnDelete.setOnClickListener {
