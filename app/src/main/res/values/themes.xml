@@ -6,7 +6,15 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.Refac_UserBus" parent="Base.Theme.Refac_UserBus" />
+    <style name="Theme.Refac_UserBus" parent="Base.Theme.Refac_UserBus" >
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="colorControlHighlight">@color/gray_200</item>
+        <item name="colorAccent">@color/gray_300</item>
+    </style>
 
     <style name="Theme.Refac_UserBus.NoActionBar">
         <item name="windowActionBar">false</item>

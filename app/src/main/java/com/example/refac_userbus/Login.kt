@@ -70,24 +70,44 @@ class Login : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     progressBar.visibility = View.GONE //로그인 성공 바로 전에 로딩 아이콘 숨김 처리
                     if (task.isSuccessful) {
-                        // 🔐 로그인 성공 → 사용자 이메일 저장 + 자동 로그인
-                        val sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE)
-                        //sharedPreference는 내가 만든 저장소가 아니라 안드로이드의 기본 제공 저장 시스템! 저
-                        // 장소 내의 MyApp이라는 곳에 이 어플리케이션의 로그인 정보 저장, 로그인 정보에 접근 못하도록 MODE_PRIVATE 적용
-                        // 여기서 내가 자동 로그인 체크 표시를 했을 때 로그인 정보를 단말 내 저장소에 저장,
-                        // 저장된 값이 있으면 바로 그 정보로 로그인 됨
-                        with(sharedPref.edit()) {
-                            putBoolean("autoLogin", checkBoxAutoLogin.isChecked)
-                            putString("userEmail", strEmail)
-                            putString("userPassword", strPwd)
-                            apply()
-                        }
+                        val user = mFirebaseAuth.currentUser
+                        val uid = user?.uid
 
-                        Toast.makeText(this, "로그인에 성공하셨습니다.", Toast.LENGTH_SHORT).show()
-                        startActivity(Intent(this, RouteChoose::class.java))
-                        finish()
-                    } else {
-                        Toast.makeText(this, "로그인에 실패하였습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                        if (uid != null) {
+                            // Realtime DB에서 isBanned 확인
+                            val userRef =
+                                FirebaseDatabase.getInstance().getReference("users").child(uid)
+                            userRef.get().addOnSuccessListener { snapshot ->
+                                val isBanned =
+                                    snapshot.child("isBanned").getValue(Boolean::class.java)
+                                        ?: false
+
+                                if (isBanned) {
+                                    Toast.makeText(
+                                        this,
+                                        "정지된 계정입니다. 관리자에게 문의하세요.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                    mFirebaseAuth.signOut() // 강제 로그아웃
+                                } else {
+                                    // 🔐 자동 로그인 정보 저장
+                                    val sharedPref = getSharedPreferences("MyApp", MODE_PRIVATE)
+                                    with(sharedPref.edit()) {
+                                        putBoolean("autoLogin", checkBoxAutoLogin.isChecked)
+                                        putString("userEmail", strEmail)
+                                        putString("userPassword", strPwd)
+                                        apply()
+                                    }
+
+                                    Toast.makeText(this, "로그인에 성공하셨습니다.", Toast.LENGTH_SHORT).show()
+                                    startActivity(Intent(this, RouteChoose::class.java))
+                                    finish()
+                                }
+                            }.addOnFailureListener {
+                                Toast.makeText(this, "유저 정보 확인 중 오류가 발생했습니다.", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
                     }
                 }
         }

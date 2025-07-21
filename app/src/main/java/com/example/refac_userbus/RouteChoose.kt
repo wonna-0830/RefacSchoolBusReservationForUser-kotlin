@@ -5,8 +5,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
@@ -32,18 +34,6 @@ class RouteChoose : AppCompatActivity() {
         super.onCreate(saveInstanceState)
         setContentView(R.layout.activity_routechoose)
 
-        val btnCampus = findViewById<Button>(R.id.gyonea)
-        val btnSawel = findViewById<Button>(R.id.sawel)
-        val btnSawelAnsim = findViewById<Button>(R.id.sawel_ansim)
-        val btnAnsim = findViewById<Button>(R.id.ansim)
-        val btnHayang = findViewById<Button>(R.id.hayang)
-
-        btnCampus.setOnClickListener{openTimePlace("교내순환")}
-        btnSawel.setOnClickListener{openTimePlace("사월역->교내순환")}
-        btnSawelAnsim.setOnClickListener{openTimePlace("A2->안심역->사월역")}
-        btnAnsim.setOnClickListener{openTimePlace("안심역->교내순환")}
-        btnHayang.setOnClickListener{openTimePlace("하양역->교내순환")}
-
         val currentUser = FirebaseAuth.getInstance().currentUser
         val uid = currentUser?.uid
         val nameTextView = findViewById<TextView>(R.id.userName)
@@ -61,6 +51,73 @@ class RouteChoose : AppCompatActivity() {
         fab.setOnClickListener{v ->
             showPopupMenu(v)
         }
+
+        val routeContainer = findViewById<LinearLayout>(R.id.routeContainer)
+
+        val routeRef = FirebaseDatabase.getInstance().getReference("routes")
+
+        routeRef.orderByChild("isPinned").equalTo(true)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                if (!snapshot.exists()) {
+                    Toast.makeText(this, "고정된 노선이 없습니다", Toast.LENGTH_SHORT).show()
+                    return@addOnSuccessListener
+                }
+
+                for (routeSnapshot in snapshot.children) {
+                    val routeName = routeSnapshot.child("name").getValue(String::class.java) ?: continue
+                    val imageName = routeSnapshot.child("imageName").getValue(String::class.java) ?: ""
+                    val stopsSnapshot = routeSnapshot.child("stops")
+                    Log.d("ROUTE_DATA", "stops snapshot: ${stopsSnapshot.value}")  // 전체 stops 확인
+
+                    val stations = mutableListOf<String>()
+                    for (child in stopsSnapshot.children) {
+                        Log.d("ROUTE_DATA", "stop key: ${child.key}, value: ${child.value}")
+                        child.getValue(String::class.java)?.let { stations.add(it) }
+                    }
+                    val times = routeSnapshot.child("times").children.mapNotNull { it.getValue(String::class.java) }
+
+                    Log.d("ROUTE_DATA", "노선명: $routeName, 정류장 수: ${stations.size}, 시간 수: ${times.size}")
+
+                    val button = Button(this).apply {
+                        text = routeName
+
+                        layoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            0, // 높이를 0으로 설정하고
+                            1f // weight를 1로 줘서 버튼 개수에 따라 자동 분배
+                        ).apply {
+                            setMargins(0, 8, 0, 8)
+                        }
+
+                        setOnClickListener {
+                            val intent = Intent(this@RouteChoose, TimePlace::class.java).apply {
+                                putExtra("EXTRA_ROUTE_NAME", routeName)
+                                putExtra("EXTRA_IMAGE_NAME", imageName)
+                                putStringArrayListExtra("EXTRA_STATIONS", ArrayList(stations))
+                                putStringArrayListExtra("EXTRA_TIMES", ArrayList(times))
+
+
+
+                            }
+                            startActivity(intent)
+                        }
+
+
+
+                    }
+                    routeContainer.addView(button)
+                    Log.d("ROUTE_DATA", "버튼 추가됨: $routeName")
+                }
+            }
+            .addOnFailureListener { error ->
+                Toast.makeText(this, "노선 목록을 불러오지 못했습니다: ${error.message}", Toast.LENGTH_SHORT).show()
+                Log.e("ROUTE_DATA", "Firebase 로딩 실패", error)
+            }
+
+
+
+
 
         val logoutBtn = findViewById<Button>(R.id.btn_logout)
         logoutBtn.setOnClickListener{
