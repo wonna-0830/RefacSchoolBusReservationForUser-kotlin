@@ -1,4 +1,4 @@
-package com.example.refac_userbus
+package com.example.refac_userbus.data.model
 
 data class ReservationData(
     //데이터 저장을 위한 데이터클래스 (사용자가 예약한 정보 하나의 객체로 관리)

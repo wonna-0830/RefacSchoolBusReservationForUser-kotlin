@@ -1,4 +1,4 @@
-package com.example.refac_userbus
+package com.example.refac_userbus.feature.alarm
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.example.refac_userbus.R
 
 class AlarmReceive : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {

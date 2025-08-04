@@ -1,4 +1,4 @@
-package com.example.refac_userbus
+package com.example.refac_userbus.application
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
