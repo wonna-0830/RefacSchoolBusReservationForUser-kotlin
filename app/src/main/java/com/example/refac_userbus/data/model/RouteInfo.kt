@@ -1,4 +1,6 @@
-package com.example.refac_userbus
+package com.example.refac_userbus.data.model
+
+import com.example.refac_userbus.R
 
 data class RouteInfo(
     val imageResId: Int,

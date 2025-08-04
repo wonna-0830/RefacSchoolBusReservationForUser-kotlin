@@ -1,19 +1,19 @@
-package com.example.refac_userbus
+package com.example.refac_userbus.feature.main
 
 import android.app.AlarmManager
 import android.content.Context
 import android.os.Bundle
 import android.content.Intent;
-import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
+import com.example.refac_userbus.R
+import com.example.refac_userbus.feature.routechoose.RouteChooseActivity
+import com.example.refac_userbus.feature.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             if (email != null && password != null) {
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                     .addOnSuccessListener {
-                        startActivity(Intent(this, RouteChoose::class.java))
+                        startActivity(Intent(this, RouteChooseActivity::class.java))
                         finish()
                     }
                     .addOnFailureListener {
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
     // 로그인으로 넘어가는 함수
     private fun moveToLogin() {
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, Login::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }, 5000)
     }

@@ -1,4 +1,4 @@
-package com.example.refac_userbus
+package com.example.refac_userbus.design
 
 import android.graphics.Rect
 import android.view.View

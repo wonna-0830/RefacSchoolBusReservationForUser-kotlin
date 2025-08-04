@@ -1,4 +1,4 @@
-package com.example.refac_userbus
+package com.example.refac_userbus.adapter
 
 import android.app.AlertDialog
 import android.graphics.Color
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.refac_userbus.R
+import com.example.refac_userbus.data.model.ReservationData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
