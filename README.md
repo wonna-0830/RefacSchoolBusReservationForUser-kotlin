@@ -90,7 +90,7 @@
 | IDE  | Android Studio |
 | DB   | Firebase Firestore |
 | 인증 | Firebase Authentication |
-| 구조 | MVVM 일부 적용 (단계적 도입 중) |
+| 구조 | MVVM 적용 |
 | 기타 | RecyclerView, Spinner, ViewBinding 등 |
 
 ---
